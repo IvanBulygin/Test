@@ -8,447 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg: #ffffff;
-      --bg-footer: #2d2d2d;
-      --bg-card-overlay: rgba(50, 50, 50, 0.92);
-      --text: #1a1a1a;
-      --text-light: #666666;
-      --text-white: #ffffff;
-      --text-muted-footer: #999999;
-      --border: #e5e5e5;
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a { text-decoration: none; color: inherit; }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-    }
-
-    /* ── Navigation ── */
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 3rem;
-      padding: 1.25rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      background: #1a1a1a;
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 0.03em;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.95rem;
-      font-weight: 400;
-      color: var(--text);
-      transition: opacity 0.2s;
-      cursor: pointer;
-    }
-
-    .nav-links a:hover { opacity: 0.6; }
-    .nav-links a:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; border-radius: 2px; }
-
-    /* ── Hero ── */
-    .hero {
-      text-align: center;
-      padding: 6rem 2rem 4rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero .subtitle {
-      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-      font-weight: 300;
-      color: var(--text-light);
-    }
-
-    /* ── Sections ── */
-    .container {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    .section-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      margin-bottom: 2rem;
-    }
-
-    /* ── Game Projects (Main Cards) ── */
-    #projects { padding: 2rem 0 4rem; }
-
-    .game-projects {
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    .game-card {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      border-radius: 6px;
-      overflow: hidden;
-      min-height: 380px;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-      transition: box-shadow 0.3s, transform 0.3s;
-      cursor: pointer;
-    }
-
-    .game-card:hover {
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .game-card:focus-visible {
-      outline: 2px solid var(--text);
-      outline-offset: 2px;
-    }
-
-    .game-media {
-      position: relative;
-      overflow: hidden;
-      background: #111;
-    }
-
-    .game-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .game-card:hover .game-media img {
-      transform: scale(1.03);
-    }
-
-    .game-info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2.5rem 2rem;
-      gap: 1rem;
-      background: var(--bg-card-overlay);
-      color: var(--text-white);
-      position: relative;
-    }
-
-    .game-info::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      opacity: 0.15;
-      pointer-events: none;
-    }
-
-    .game-logo {
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      position: relative;
-    }
-
-    .game-logo.fragment { letter-spacing: 0.2em; font-size: 1.5rem; }
-    .game-logo.boop { font-size: 2rem; font-weight: 900; }
-
-    .game-roles {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      position: relative;
-    }
-
-    .game-roles span {
-      font-size: 0.95rem;
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.85);
-    }
-
-    .read-more-btn {
-      display: inline-block;
-      padding: 0.5rem 1.6rem;
-      border: 1.5px solid rgba(255, 255, 255, 0.6);
-      border-radius: 100px;
-      font-family: var(--font);
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-white);
-      background: transparent;
-      cursor: pointer;
-      transition: background 0.25s, border-color 0.25s;
-      position: relative;
-    }
-
-    .read-more-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: #fff;
-    }
-
-    .engine-badge {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-      position: relative;
-    }
-
-    .engine-badge img {
-      height: 40px;
-      width: auto;
-      filter: brightness(0) invert(1);
-    }
-
-    .engine-badge svg {
-      height: 40px;
-      width: auto;
-      fill: #fff;
-    }
-
-    .engine-text {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: var(--text-white);
-    }
-
-    .engine-text .engine-icon {
-      width: 36px;
-      height: 36px;
-      margin-bottom: 0.25rem;
-    }
-
-    .engine-text span {
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    /* ── Other Projects ── */
-    #other-projects { padding: 4rem 0 5rem; }
-
-    .filter-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 2.5rem;
-      flex-wrap: wrap;
-    }
-
-    .filter-tab {
-      font-family: var(--font);
-      font-size: 0.9rem;
-      font-weight: 400;
-      color: var(--text-light);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.25rem 0;
-      border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    .filter-tab:hover { color: var(--text); }
-    .filter-tab.active {
-      color: var(--text);
-      border-bottom-color: var(--text);
-    }
-    .filter-tab:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; border-radius: 2px; }
-
-    .other-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-    }
-
-    .other-card {
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      transition: box-shadow 0.3s, transform 0.3s;
-      cursor: pointer;
-      background: #fff;
-    }
-
-    .other-card:hover {
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-      transform: translateY(-3px);
-    }
-
-    .other-card:focus-visible {
-      outline: 2px solid var(--text);
-      outline-offset: 2px;
-    }
-
-    .other-card-img {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      display: block;
-      background: #111;
-    }
-
-    .other-card-body {
-      padding: 1rem 1rem 1.25rem;
-      text-align: center;
-    }
-
-    .other-card-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .other-card-category {
-      font-size: 0.85rem;
-      color: var(--text-light);
-    }
-
-    /* ── Footer ── */
-    footer {
-      background: var(--bg-footer);
-      color: var(--text-muted-footer);
-      padding: 3.5rem 2rem 2.5rem;
-    }
-
-    .footer-inner {
-      max-width: 1140px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: 2rem;
-    }
-
-    .footer-brand .logo {
-      margin-bottom: 1rem;
-    }
-
-    .footer-brand .copyright {
-      font-size: 0.75rem;
-      color: var(--text-muted-footer);
-    }
-
-    .footer-col h4 {
-      color: #fff;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-    }
-
-    .footer-col a,
-    .footer-col p {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--text-muted-footer);
-      margin-bottom: 0.4rem;
-      transition: color 0.2s;
-    }
-
-    .footer-col a:hover { color: #fff; }
-
-    /* ── Animations ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .game-card {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-
-      .game-media { height: 250px; }
-
-      .other-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .footer-inner {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 600px) {
-      nav { gap: 1.5rem; padding: 1rem; }
-      .nav-links { gap: 1.5rem; }
-      .nav-links a { font-size: 0.85rem; }
-
-      .hero { padding: 4rem 1.5rem 3rem; }
-      .container { padding: 0 1.25rem; }
-
-      .other-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .filter-tabs { gap: 1rem; }
-
-      .footer-inner {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -475,7 +35,7 @@
       <div class="game-projects">
 
         <!-- Fragment -->
-        <a class="game-card reveal" href="#" aria-label="View Fragment project">
+        <a class="game-card reveal" href="projects/fragment.html" aria-label="View Fragment project">
           <div class="game-media">
             <img src="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=800&q=80" alt="Fragment — dark atmospheric top-down game with glowing particles and neon lighting">
           </div>
@@ -486,7 +46,7 @@
               <span>Technical Design</span>
               <span>Sound Design</span>
             </div>
-            <button class="read-more-btn">Read more</button>
+            <span class="read-more-btn">Read more</span>
             <div class="engine-text">
               <svg class="engine-icon" viewBox="0 0 24 24" fill="white"><path d="M10.4 0.8C4.6 0.8 0 5.4 0 11.3c0 3.4 1.6 6.4 4 8.4l1.2-2.2c-1.8-1.6-3-3.8-3-6.3C2.2 6.6 5.9 2.9 10.4 2.9s8.3 3.7 8.3 8.3c0 2.5-1.1 4.7-2.9 6.3l1.2 2.2c2.5-2 4-5 4-8.4C21 5.4 16.3 0.8 10.4 0.8zM10.4 5c-3.4 0-6.2 2.8-6.2 6.3 0 2 1 3.8 2.5 4.9l1.2-2.2c-1-.8-1.6-2-1.6-3.3 0-2.3 1.9-4.2 4.2-4.2s4.2 1.9 4.2 4.2c0 1.3-.6 2.5-1.5 3.3l1.2 2.2c1.5-1.2 2.5-3 2.5-4.9C16.7 7.8 13.9 5 10.4 5zm0 4.2c-1.1 0-2.1.9-2.1 2.1s.9 2.1 2.1 2.1 2.1-.9 2.1-2.1-.9-2.1-2.1-2.1z"/></svg>
               <span>unity</span>
@@ -495,7 +55,7 @@
         </a>
 
         <!-- Totem -->
-        <a class="game-card reveal" href="#" aria-label="View Totem project">
+        <a class="game-card reveal" href="projects/totem.html" aria-label="View Totem project">
           <div class="game-media">
             <img src="https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=800&q=80" alt="Totem — colorful 3D adventure platformer with floating islands and bright skies">
           </div>
@@ -506,7 +66,7 @@
               <span>Gameplay Design</span>
               <span>Sound Design</span>
             </div>
-            <button class="read-more-btn">Read more</button>
+            <span class="read-more-btn">Read more</span>
             <div class="engine-text">
               <svg class="engine-icon" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="2"/><path d="M12 2C12 2 12 12 12 12" stroke="white" stroke-width="2"/><path d="M12 12L18 18" stroke="white" stroke-width="2"/></svg>
               <span>Unreal Engine</span>
@@ -515,7 +75,7 @@
         </a>
 
         <!-- BOOP -->
-        <a class="game-card reveal" href="#" aria-label="View BOOP project">
+        <a class="game-card reveal" href="projects/boop.html" aria-label="View BOOP project">
           <div class="game-media">
             <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&q=80" alt="BOOP — multiplayer party game with industrial steampunk aesthetics">
           </div>
@@ -526,7 +86,7 @@
               <span>Technical Design</span>
               <span>Sound Design</span>
             </div>
-            <button class="read-more-btn">Read more</button>
+            <span class="read-more-btn">Read more</span>
             <div class="engine-text">
               <svg class="engine-icon" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="2"/><path d="M12 2C12 2 12 12 12 12" stroke="white" stroke-width="2"/><path d="M12 12L18 18" stroke="white" stroke-width="2"/></svg>
               <span>Unreal Engine</span>
@@ -553,76 +113,72 @@
 
       <div class="other-grid reveal">
 
-        <!-- Prototypes -->
-        <a class="other-card" href="#" data-category="prototypes" aria-label="Enemy encounter AI project">
-          <img class="other-card-img" src="https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=400&q=70" alt="Enemy encounter AI — 3D prototype with character and obstacle blocks">
+        <a class="other-card" href="projects/enemy-encounter-ai.html" data-category="prototypes" aria-label="Enemy encounter AI project">
+          <img class="other-card-img" src="https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=400&q=70" alt="Enemy encounter AI — 3D prototype">
           <div class="other-card-body">
             <h3 class="other-card-title">Enemy encounter AI</h3>
             <p class="other-card-category">Prototypes</p>
           </div>
         </a>
 
-        <a class="other-card" href="#" data-category="prototypes" aria-label="FPS Movement project">
-          <img class="other-card-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&q=70" alt="FPS Movement — first-person shooter movement prototype">
+        <a class="other-card" href="projects/fps-movement.html" data-category="prototypes" aria-label="FPS Movement project">
+          <img class="other-card-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&q=70" alt="FPS Movement prototype">
           <div class="other-card-body">
             <h3 class="other-card-title">FPS Movement</h3>
             <p class="other-card-category">Prototypes</p>
           </div>
         </a>
 
-        <a class="other-card" href="#" data-category="prototypes" aria-label="Dodge Ball Neon Edition project">
-          <img class="other-card-img" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&q=70" alt="Dodge Ball Neon Edition — neon-themed multiplayer dodge ball game">
+        <a class="other-card" href="projects/dodge-ball-neon.html" data-category="prototypes" aria-label="Dodge Ball Neon Edition project">
+          <img class="other-card-img" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&q=70" alt="Dodge Ball Neon Edition">
           <div class="other-card-body">
             <h3 class="other-card-title">Dodge Ball &ndash; Neon Edition</h3>
             <p class="other-card-category">Prototypes</p>
           </div>
         </a>
 
-        <!-- Programming -->
-        <a class="other-card" href="#" data-category="programming" aria-label="Asteroids project">
-          <img class="other-card-img" src="https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=400&q=70" alt="Asteroids — classic space shooter remake">
+        <a class="other-card" href="projects/asteroids.html" data-category="programming" aria-label="Asteroids project">
+          <img class="other-card-img" src="https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=400&q=70" alt="Asteroids — classic space shooter">
           <div class="other-card-body">
             <h3 class="other-card-title">Asteroids</h3>
             <p class="other-card-category">Programming</p>
           </div>
         </a>
 
-        <a class="other-card" href="#" data-category="programming" aria-label="Pong in Reflection project">
-          <img class="other-card-img" src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=400&q=70" alt="Pong in Reflection — minimalist pong game">
+        <a class="other-card" href="projects/pong-in-reflection.html" data-category="programming" aria-label="Pong in Reflection project">
+          <img class="other-card-img" src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=400&q=70" alt="Pong in Reflection">
           <div class="other-card-body">
             <h3 class="other-card-title">Pong in Reflection</h3>
             <p class="other-card-category">Programming</p>
           </div>
         </a>
 
-        <a class="other-card" href="#" data-category="programming" aria-label="Gauntlet project">
-          <img class="other-card-img" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=70" alt="Gauntlet — top-down dungeon crawler with blue grid map">
+        <a class="other-card" href="projects/gauntlet.html" data-category="programming" aria-label="Gauntlet project">
+          <img class="other-card-img" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=70" alt="Gauntlet — dungeon crawler">
           <div class="other-card-body">
             <h3 class="other-card-title">Gauntlet</h3>
             <p class="other-card-category">Programming</p>
           </div>
         </a>
 
-        <!-- Level Design -->
-        <a class="other-card" href="#" data-category="level-design" aria-label="Castle Ruins project">
-          <img class="other-card-img" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&q=70" alt="Castle Ruins — medieval castle level design in Unreal Engine">
+        <a class="other-card" href="projects/castle-ruins.html" data-category="level-design" aria-label="Castle Ruins project">
+          <img class="other-card-img" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&q=70" alt="Castle Ruins level design">
           <div class="other-card-body">
             <h3 class="other-card-title">Castle Ruins</h3>
             <p class="other-card-category">Level Design</p>
           </div>
         </a>
 
-        <a class="other-card" href="#" data-category="level-design" aria-label="Photographer On the Hillside project">
-          <img class="other-card-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=70" alt="Photographer On the Hillside — atmospheric hillside environment">
+        <a class="other-card" href="projects/photographer-on-the-hillside.html" data-category="level-design" aria-label="Photographer On the Hillside project">
+          <img class="other-card-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=70" alt="Photographer On the Hillside">
           <div class="other-card-body">
             <h3 class="other-card-title">Photographer On the Hillside</h3>
             <p class="other-card-category">Level Design</p>
           </div>
         </a>
 
-        <!-- Board Games -->
-        <a class="other-card" href="#" data-category="board-games" aria-label="Legend of Mothman project">
-          <img class="other-card-img" src="https://images.unsplash.com/photo-1606503153255-59d8b2e4b0e4?w=400&q=70" alt="Legend of Mothman — social card game with multiple personalities">
+        <a class="other-card" href="projects/legend-of-mothman.html" data-category="board-games" aria-label="Legend of Mothman project">
+          <img class="other-card-img" src="https://images.unsplash.com/photo-1606503153255-59d8b2e4b0e4?w=400&q=70" alt="Legend of Mothman board game">
           <div class="other-card-body">
             <h3 class="other-card-title">Legend of Mothman</h3>
             <p class="other-card-category">Board Games</p>
@@ -659,7 +215,6 @@
   </footer>
 
   <script>
-    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -670,22 +225,15 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Filter tabs
     const tabs = document.querySelectorAll('.filter-tab');
     const cards = document.querySelectorAll('.other-card');
-
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         const filter = tab.dataset.filter;
-
         cards.forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.style.display = '';
-          } else {
-            card.style.display = 'none';
-          }
+          card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
         });
       });
     });
